@@ -28,7 +28,7 @@ def main():
 	shots = pygame.sprite.Group()
 	Shot.containers = (shots, updatables, drawables)
 
-	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+	screen = pygame.display.set_mode((SCREEN_WIDTH+100, SCREEN_HEIGHT))
 	player = Player((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2))
 	asteroidfield = AsteroidField()
 
@@ -39,6 +39,7 @@ def main():
     			if event.type == pygame.QUIT:
         			return
 		screen.fill(000000)
+		pygame.draw.line(screen, (255,255,255), (SCREEN_WIDTH, 0), (SCREEN_WIDTH, SCREEN_HEIGHT))
 		updatables.update(dt)
 
 		#collision check on asteroids
@@ -53,6 +54,8 @@ def main():
 					shot.kill()
 		for drawable in drawables:
 			drawable.draw(screen)
+
+		pygame.draw.rect(screen, (0,0,0), pygame.Rect(SCREEN_WIDTH+1, 0, 100, SCREEN_HEIGHT))
 		pygame.display.flip()
 		clock.tick(60)
 		dt = clock.tick(60) / 1000
